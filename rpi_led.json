@@ -1,0 +1,35 @@
+{
+
+   "app": {
+   
+   "title": "RPI_LED",
+   "version": "1.0.0",
+   "supplier": "Open STEMware",
+   "copyright": "bitValence",
+   "url": "https://github.com/cfs-apps/rpi_led",
+
+   "description": [
+      "Raspberry Pi app demonstrating how to control an LED using",
+      "General Purpose I/O (GPIO) pins. This app can be used as a",
+      "starting point for more sophisticated apps that control an",
+      "external device."
+   ],
+
+   "cfs": {
+      "cfe-type": "CFE_APP",
+      "obj-file": "rpi_led",
+      "entry-symbol": "RPI_LED_AppMain",
+      "name": "RPI_LED",
+      "priority": 70,
+      "stack": 32768,
+      "load_addr": 0,
+      "exception-action": 0,
+      "app-framework": "osk",
+      "tables": ["rpi_led_ini.json"]
+   },
+
+   "requires": ["app_c_fw", "rpi_iolib"]
+
+}}
+
+

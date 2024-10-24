@@ -1,0 +1,26 @@
+{
+   "title": "Raspberry Pi LED Control Demo initialization file",
+   "description": [ "Define runtime configurations",
+                    "GPIO Pin is the GPIO definition and not the physical pin number"],
+   "config": {
+      
+      "APP_CFE_NAME": "RPI_LED",
+      "APP_PERF_ID":  128,
+      
+      "APP_CMD_PIPE_NAME":  "RPI_LED_CMD",
+      "APP_CMD_PIPE_DEPTH": 10,
+      
+      "RPI_LED_CMD_TOPICID"        : 0,
+      "BC_SCH_1_HZ_TOPICID"        : 0,
+      "RPI_LED_STATUS_TLM_TOPICID" : 0,
+
+      "CHILD_NAME":       "RPI_LED_CHILD",
+      "CHILD_PERF_ID":    44,
+      "CHILD_STACK_SIZE": 16384,
+      "CHILD_PRIORITY":   80,
+
+      "CTRL_OUT_PIN" :   18,
+      "CTRL_ON_TIME" : 3000,
+      "CTRL_OFF_TIME": 6000
+  }
+}
