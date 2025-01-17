@@ -20,8 +20,8 @@
 **
 */
 
-#ifndef _gpio_ctrl_
-#define _gpio_ctrl_
+#ifndef _led_ctrl_
+#define _led_ctrl_
 
 /*
 ** Includes
@@ -37,10 +37,10 @@
 ** Event Message IDs
 */
 
-#define GPIO_CTRL_CONSTRUCTOR_EID  (GPIO_CTRL_BASE_EID + 0)
-#define GPIO_CTRL_SET_ON_TIME_EID  (GPIO_CTRL_BASE_EID + 1)
-#define GPIO_CTRL_SET_OFF_TIME_EID (GPIO_CTRL_BASE_EID + 2)
-#define GPIO_CTRL_CHILD_TASK_EID   (GPIO_CTRL_BASE_EID + 3)
+#define LED_CTRL_CONSTRUCTOR_EID  (LED_CTRL_BASE_EID + 0)
+#define LED_CTRL_SET_ON_TIME_EID  (LED_CTRL_BASE_EID + 1)
+#define LED_CTRL_SET_OFF_TIME_EID (LED_CTRL_BASE_EID + 2)
+#define LED_CTRL_CHILD_TASK_EID   (LED_CTRL_BASE_EID + 3)
 
 
 /**********************/
@@ -87,7 +87,7 @@ typedef struct
    */
    
    
-} GPIO_CTRL_Class_t;
+} LED_CTRL_Class_t;
 
 
 
@@ -97,7 +97,7 @@ typedef struct
 
 
 /******************************************************************************
-** Function: GPIO_CTRL_Constructor
+** Function: LED_CTRL_Constructor
 **
 ** Initialize the GPIO Controller object to a known state
 **
@@ -105,18 +105,18 @@ typedef struct
 **   1. This must be called prior to any other function.
 **
 */
-void GPIO_CTRL_Constructor(GPIO_CTRL_Class_t *GpioCtrlPtr, INITBL_Class_t *IniTbl);
+void LED_CTRL_Constructor(LED_CTRL_Class_t *LedCtrlPtr, INITBL_Class_t *IniTbl);
 
 
 /******************************************************************************
-** Function: GPIO_CTRL_ChildTask
+** Function: LED_CTRL_ChildTask
 **
 */
-bool GPIO_CTRL_ChildTask(CHILDMGR_Class_t *ChildMgr);
+bool LED_CTRL_ChildTask(CHILDMGR_Class_t *ChildMgr);
 
 
 /******************************************************************************
-** Function: GPIO_CTRL_ResetStatus
+** Function: LED_CTRL_ResetStatus
 **
 ** Reset counters and status flags to a known reset state.
 **
@@ -125,21 +125,21 @@ bool GPIO_CTRL_ChildTask(CHILDMGR_Class_t *ChildMgr);
 **      change the functional behavior should be reset.
 **
 */
-void GPIO_CTRL_ResetStatus(void);
+void LED_CTRL_ResetStatus(void);
 
 
 /******************************************************************************
-** Function: GPIO_CTRL_SetOffTimeCmd
+** Function: LED_CTRL_SetOffTimeCmd
 **
 */
-bool GPIO_CTRL_SetOffTimeCmd(void *DataObjPtr, const CFE_MSG_Message_t *MsgPtr);
+bool LED_CTRL_SetOffTimeCmd(void *DataObjPtr, const CFE_MSG_Message_t *MsgPtr);
 
 
 /******************************************************************************
-** Function: GPIO_CTRL_SetOnTimeCmd
+** Function: LED_CTRL_SetOnTimeCmd
 **
 */
-bool GPIO_CTRL_SetOnTimeCmd(void *DataObjPtr, const CFE_MSG_Message_t *MsgPtr);
+bool LED_CTRL_SetOnTimeCmd(void *DataObjPtr, const CFE_MSG_Message_t *MsgPtr);
 
 
-#endif /* _gpio_ctrl_ */
+#endif /* _led_ctrl_ */

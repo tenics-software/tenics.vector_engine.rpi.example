@@ -94,7 +94,7 @@ typedef struct
    CFE_SB_MsgId_t     CmdMid;
    CFE_SB_MsgId_t     SendStatusMid;
    
-   GPIO_CTRL_Class_t  GpioCtrl;
+   LED_CTRL_Class_t   LedCtrl;
  
 } RPI_LED_Class_t;
 

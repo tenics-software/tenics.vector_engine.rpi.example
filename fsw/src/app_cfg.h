@@ -115,7 +115,7 @@ DECLARE_ENUM(Config,APP_CONFIG)
 */
 
 #define RPI_LED_BASE_EID    (APP_C_FW_APP_BASE_EID +  0)
-#define GPIO_CTRL_BASE_EID  (APP_C_FW_APP_BASE_EID + 20)
+#define LED_CTRL_BASE_EID   (APP_C_FW_APP_BASE_EID + 20)
 
 
 #endif /* _app_cfg_ */

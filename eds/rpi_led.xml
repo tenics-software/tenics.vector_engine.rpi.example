@@ -24,7 +24,7 @@
 
 -->
 <PackageFile xmlns="http://www.ccsds.org/schema/sois/seds">
-  <Package name="RPI_LED" shortDescription="Raspberry Pi LED COntrol Demo App">
+  <Package name="RPI_LED" shortDescription="Raspberry Pi LED Control Demo App">
     <DataTypeSet>
 
       <!--***********************************-->

@@ -36,7 +36,7 @@
 #define  INITBL_OBJ    (&(RpiLed.IniTbl))
 #define  CMDMGR_OBJ    (&(RpiLed.CmdMgr))
 #define  CHILDMGR_OBJ  (&(RpiLed.ChildMgr))
-#define  GPIO_CTRL_OBJ (&(RpiLed.GpioCtrl))
+#define  LED_CTRL_OBJ  (&(RpiLed.LedCtrl))
 
 
 /*******************************/
@@ -62,7 +62,7 @@ DEFINE_ENUM(Config,APP_CONFIG)
 static CFE_EVS_BinFilter_t  EventFilters[] =
 {  
    /* Event ID                  Mask */
-   {GPIO_CTRL_CHILD_TASK_EID,   CFE_EVS_FIRST_4_STOP}  // Use CFE_EVS_NO_FILTER to see all events
+   {LED_CTRL_CHILD_TASK_EID,   CFE_EVS_FIRST_4_STOP}  // Use CFE_EVS_NO_FILTER to see all events
 
 };
 
@@ -148,7 +148,7 @@ bool RPI_LED_ResetAppCmd(void *ObjDataPtr, const CFE_MSG_Message_t *MsgPtr)
    CMDMGR_ResetStatus(CMDMGR_OBJ);
    CHILDMGR_ResetStatus(CHILDMGR_OBJ);
    
-   GPIO_CTRL_ResetStatus();
+   LED_CTRL_ResetStatus();
 	  
    return true;
 
@@ -185,14 +185,14 @@ static int32 InitApp(void)
       ChildTaskInit.StackSize = INITBL_GetIntConfig(INITBL_OBJ, CFG_CHILD_STACK_SIZE);
       ChildTaskInit.Priority  = INITBL_GetIntConfig(INITBL_OBJ, CFG_CHILD_PRIORITY);
       Status = CHILDMGR_Constructor(CHILDMGR_OBJ, ChildMgr_TaskMainCallback,
-                                    GPIO_CTRL_ChildTask, &ChildTaskInit); 
+                                    LED_CTRL_ChildTask, &ChildTaskInit); 
   
    } /* End if INITBL Constructed */
   
    if (Status == CFE_SUCCESS)
    {
 
-      GPIO_CTRL_Constructor(GPIO_CTRL_OBJ, &RpiLed.IniTbl);
+      LED_CTRL_Constructor(LED_CTRL_OBJ, &RpiLed.IniTbl);
 
       /*
       ** Initialize app level interfaces
@@ -206,8 +206,8 @@ static int32 InitApp(void)
       CMDMGR_RegisterFunc(CMDMGR_OBJ, CMDMGR_NOOP_CMD_FC,   NULL, RPI_LED_NoOpCmd,     0);
       CMDMGR_RegisterFunc(CMDMGR_OBJ, CMDMGR_RESET_CMD_FC,  NULL, RPI_LED_ResetAppCmd, 0);
 
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, RPI_LED_SET_ON_TIME_CC,  GPIO_CTRL_OBJ, GPIO_CTRL_SetOnTimeCmd,  sizeof(RPI_LED_SetOnTime_Payload_t));
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, RPI_LED_SET_OFF_TIME_CC, GPIO_CTRL_OBJ, GPIO_CTRL_SetOffTimeCmd, sizeof(RPI_LED_SetOffTime_Payload_t));
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, RPI_LED_SET_ON_TIME_CC,  LED_CTRL_OBJ, LED_CTRL_SetOnTimeCmd,  sizeof(RPI_LED_SetOnTime_Payload_t));
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, RPI_LED_SET_OFF_TIME_CC, LED_CTRL_OBJ, LED_CTRL_SetOffTimeCmd, sizeof(RPI_LED_SetOffTime_Payload_t));
       
       CFE_MSG_Init(CFE_MSG_PTR(RpiLed.StatusTlm.TelemetryHeader), CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_RPI_LED_STATUS_TLM_TOPICID)), sizeof(RPI_LED_StatusTlm_t));
    
@@ -308,14 +308,14 @@ static void SendStatusTlm(void)
    ** Controller 
    */ 
    
-   StatusTlmPayload->CtrlIsMapped = RpiLed.GpioCtrl.IsMapped;
-   StatusTlmPayload->CtrlOutPin   = RpiLed.GpioCtrl.OutPin;
+   StatusTlmPayload->CtrlIsMapped = RpiLed.LedCtrl.IsMapped;
+   StatusTlmPayload->CtrlOutPin   = RpiLed.LedCtrl.OutPin;
    
-   StatusTlmPayload->CtrlLedOn    = RpiLed.GpioCtrl.LedOn;
+   StatusTlmPayload->CtrlLedOn    = RpiLed.LedCtrl.LedOn;
    StatusTlmPayload->CtrlSpare    = 0;
          
-   StatusTlmPayload->CtrlOnTime   = RpiLed.GpioCtrl.OnTime;
-   StatusTlmPayload->CtrlOffTime  = RpiLed.GpioCtrl.OffTime;
+   StatusTlmPayload->CtrlOnTime   = RpiLed.LedCtrl.OnTime;
+   StatusTlmPayload->CtrlOffTime  = RpiLed.LedCtrl.OffTime;
    
    CFE_SB_TimeStampMsg(CFE_MSG_PTR(RpiLed.StatusTlm.TelemetryHeader));
    CFE_SB_TransmitMsg(CFE_MSG_PTR(RpiLed.StatusTlm.TelemetryHeader), true);
