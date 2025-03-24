@@ -28,12 +28,9 @@
 /*
 ** Includes
 */
-
 #include "rpi_led_eds_typedefs.h"
-
 #include "rpi_led_platform_cfg.h"
 #include "app_c_fw.h"
-
 
 /******************************************************************************
 ** Application Macros
@@ -44,10 +41,8 @@
 **
 ** 1.0 - Initial release
 */
-
 #define  RPI_LED_MAJOR_VER   1
 #define  RPI_LED_MINOR_VER   0
-
 
 /******************************************************************************
 ** Init File declarations create:
@@ -84,8 +79,11 @@
 #define CFG_CHILD_PRIORITY   CHILD_PRIORITY
 
 #define CFG_CTRL_OUT_PIN     CTRL_OUT_PIN
-#define CFG_CTRL_ON_TIME     CTRL_ON_TIME
-#define CFG_CTRL_OFF_TIME    CTRL_OFF_TIME
+
+#define CFG_CTRL_ON_CMD_TOPICID     RPI_LED_CTRL_ON_CMD_TOPICID
+#define CFG_CTRL_OFF_CMD_TOPICID    RPI_LED_CTRL_OFF_CMD_TOPICID
+#define CFG_LED_ON_CMD_ID           RPI_LED_ON_CMD_ID
+#define CFG_LED_OFF_CMD_ID          RPI_LED_OFF_CMD_ID
 
 #define APP_CONFIG(XX) \
    XX(APP_CFE_NAME,char*) \
@@ -100,11 +98,8 @@
    XX(CHILD_STACK_SIZE,uint32) \
    XX(CHILD_PRIORITY,uint32) \
    XX(CTRL_OUT_PIN,uint32) \
-   XX(CTRL_ON_TIME,uint32) \
-   XX(CTRL_OFF_TIME,uint32) \
-   
-DECLARE_ENUM(Config,APP_CONFIG)
 
+DECLARE_ENUM(Config,APP_CONFIG)
 
 /******************************************************************************
 ** Event Macros
@@ -113,9 +108,7 @@ DECLARE_ENUM(Config,APP_CONFIG)
 ** application. There are no automated checks to ensure an ID range is not
 ** exceeded so it is the developer's responsibility to verify the ranges. 
 */
-
 #define RPI_LED_BASE_EID    (APP_C_FW_APP_BASE_EID +  0)
 #define LED_CTRL_BASE_EID   (APP_C_FW_APP_BASE_EID + 20)
-
 
 #endif /* _app_cfg_ */

@@ -28,7 +28,6 @@
 /*
 ** Includes
 */
-
 #include "app_cfg.h"
 #include "childmgr.h"
 #include "initbl.h"
@@ -41,54 +40,31 @@
 /*
 ** Events
 */
-
 #define RPI_LED_INIT_APP_EID    (RPI_LED_BASE_EID + 0)
 #define RPI_LED_NOOP_EID        (RPI_LED_BASE_EID + 1)
 #define RPI_LED_EXIT_EID        (RPI_LED_BASE_EID + 2)
 #define RPI_LED_INVALID_MID_EID (RPI_LED_BASE_EID + 3)
-
+#define RPI_LED_ON_EID          (RPI_LED_BASE_EID + 4)
+#define RPI_LED_OFF_EID         (RPI_LED_BASE_EID + 5)
 
 /**********************/
 /** Type Definitions **/
 /**********************/
-
-
-/******************************************************************************
-** Command Packets
-** - See EDS command definitions in rpi_led.xml
-*/
-
-
-/******************************************************************************
-** Telmetery Packets
-** - See EDS command definitions in rpi_led.xml
-*/
-
 
 /******************************************************************************
 ** RPI_LED_Class
 */
 typedef struct 
 {
-
-   /* 
-   ** App Framework
-   */ 
-   
+   /* App Framework */
    INITBL_Class_t     IniTbl; 
    CMDMGR_Class_t     CmdMgr;
    CHILDMGR_Class_t   ChildMgr;   
-   
-   /*
-   ** Telemetry Packets
-   */
-   
+
+   /* Telemetry Packets */
    RPI_LED_StatusTlm_t  StatusTlm;
 
-   /*
-   ** App State & Objects
-   */ 
-       
+   /* App State & Objects */       
    uint32             PerfId;
    CFE_SB_PipeId_t    CmdPipe;
    CFE_SB_MsgId_t     CmdMid;
@@ -98,38 +74,38 @@ typedef struct
  
 } RPI_LED_Class_t;
 
-
 /*******************/
 /** Exported Data **/
 /*******************/
-
 extern RPI_LED_Class_t  RpiLed;
-
 
 /************************/
 /** Exported Functions **/
 /************************/
 
-
 /******************************************************************************
 ** Function: RPI_LED_AppMain
-**
 */
 void RPI_LED_AppMain(void);
 
-
 /******************************************************************************
 ** Function: RPI_LED_NoOpCmd
-**
 */
 bool RPI_LED_NoOpCmd(void *ObjDataPtr, const CFE_MSG_Message_t *MsgPtr);
 
-
 /******************************************************************************
 ** Function: RPI_LED_ResetAppCmd
-**
 */
 bool RPI_LED_ResetAppCmd(void *ObjDataPtr, const CFE_MSG_Message_t *MsgPtr);
 
+/******************************************************************************
+** Function: RPI_LED_TurnOnCmd
+*/
+bool RPI_LED_TurnOnCmd(void *ObjDataPtr, const CFE_MSG_Message_t *MsgPtr);
+
+/******************************************************************************
+** Function: RPI_LED_TurnOffCmd
+*/
+bool RPI_LED_TurnOffCmd(void *ObjDataPtr, const CFE_MSG_Message_t *MsgPtr);
 
 #endif /* _rpi_led_app_ */
