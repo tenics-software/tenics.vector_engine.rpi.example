@@ -19,8 +19,6 @@
       "CHILD_STACK_SIZE": 16384,
       "CHILD_PRIORITY":   80,
 
-      "CTRL_OUT_PIN" :   18,
-      "CTRL_ON_TIME" : 3000,
-      "CTRL_OFF_TIME": 6000
+      "CTRL_OUT_PIN" :   18
   }
 }
