@@ -27,27 +27,6 @@
   <Package name="RPI_LED" shortDescription="Raspberry Pi LED Control Demo App">
     <DataTypeSet>
 
-      <!--***********************************-->
-      <!--**** DataTypeSet:  Entry Types ****-->
-      <!--***********************************-->
-
-
-      <!--***************************************-->
-      <!--**** DataTypeSet: Command Payloads ****-->
-      <!--***************************************-->
-
-      <ContainerDataType name="SetOnTime_Payload" shortDescription="Set the LED on time">
-        <EntryList>
-          <Entry name="OnTime" type="BASE_TYPES/uint16" shortDescription="Time (milliseconds) to keep LED on" />
-       </EntryList>
-      </ContainerDataType>
-
-      <ContainerDataType name="SetOffTime_Payload" shortDescription="Set the LED off time">
-        <EntryList>
-          <Entry name="OffTime" type="BASE_TYPES/uint16" shortDescription="Time (milliseconds) to keep LED off" />
-       </EntryList>
-      </ContainerDataType>
-
       <!--*****************************************-->
       <!--**** DataTypeSet: Telemetry Payloads ****-->
       <!--*****************************************-->
@@ -60,11 +39,8 @@
           <Entry name="CtrlOutPin"     type="BASE_TYPES/uint8"      />
           <Entry name="CtrlLedOn"      type="APP_C_FW/BooleanUint8" />
           <Entry name="CtrlSpare"      type="BASE_TYPES/uint8"      />
-          <Entry name="CtrlOnTime"     type="BASE_TYPES/uint16"     />
-          <Entry name="CtrlOffTime"    type="BASE_TYPES/uint16"     />
         </EntryList>
       </ContainerDataType>
-      
 
       <!--**************************************-->
       <!--**** DataTypeSet: Command Packets ****-->
@@ -85,24 +61,17 @@
         </ConstraintSet>
       </ContainerDataType>
 
-      <ContainerDataType name="SetOnTime" baseType="CommandBase" shortDescription="Set the LED on time">
+      <ContainerDataType name="TurnOn" baseType="CommandBase" shortDescription="Turn on the LED">
         <ConstraintSet>
           <ValueConstraint entry="Sec.FunctionCode" value="${APP_C_FW/APP_BASE_CC} + 0" />
         </ConstraintSet>
-        <EntryList>
-          <Entry type="SetOnTime_Payload" name="Payload" />
-        </EntryList>
       </ContainerDataType>
 
-      <ContainerDataType name="SetOffTime" baseType="CommandBase" shortDescription="Set the LED off time">
+      <ContainerDataType name="TurnOff" baseType="CommandBase" shortDescription="Turn off the LED">
         <ConstraintSet>
           <ValueConstraint entry="Sec.FunctionCode" value="${APP_C_FW/APP_BASE_CC} + 1" />
         </ConstraintSet>
-        <EntryList>
-          <Entry type="SetOffTime_Payload" name="Payload" />
-        </EntryList>
       </ContainerDataType>
-
 
       <!--****************************************-->
       <!--**** DataTypeSet: Telemetry Packets ****-->
